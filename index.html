@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fone Fog</title>
+  <style>
+    #foneGrid {
+        background: #ccc;
+        border: 1px solid #000;
+    }
+
+    #foneGrid td {
+        background: #fff;
+        width: 20px;
+        height: 20px;
+    }
+
+    #foneGrid td.filled {
+        background: #bbb;
+    }
+
+    #foneGrid tr.hidden, #foneGrid td.hidden {
+        display: none;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Fone Fog</h1>
+    <form id="foneForm" action="#">
+        <table>
+            <tr>
+                <td>
+                    <label for="foneRows">Rows: </label>
+                </td>
+                <td>
+                    <input id="foneRows" type="text" name="foneRows" placeholder="20">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="foneCols">Columns: </label>
+                </td>
+                <td>
+                    <input id="foneCols" type="text" name="foneCols" placeholder="40">
+                </td>
+            </tr>
+        </table>
+      </form>
+      <table id="foneGrid">
+        <tr id="row1">
+            <td class="col1"></td><td class="col2"></td><td class="col3"></td>
+        </tr>
+        <tr id="row2">
+            <td class="col1"></td><td class="col2"></td><td class="col3"></td>
+        </tr>
+        <tr id="row3">
+            <td class="col1"></td><td class="col2"></td><td class="col3"></td>
+        </tr>
+      </table>
+  </main>
+  <script>
+    const tableForm = document.querySelector("#foneForm");
+    const rowInput = document.querySelector("input#foneRows");
+    const colInput = document.querySelector("input#foneCols");
+    
+    let rows = 20;
+    let cols = 40;
+
+    tableForm.onchange = function(e) {
+        let fieldValue = rowInput.value;
+        if (fieldValue != null && fieldValue != "") {
+            rows = fieldValue;
+        }
+        
+        fieldValue = colInput.value;
+        if (fieldValue != null && fieldValue != "") {
+            cols = fieldValue;
+        }
+
+        return false;
+    }
+
+  </script>
+</body>
+</html>
