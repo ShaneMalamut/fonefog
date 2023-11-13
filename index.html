@@ -137,7 +137,7 @@
         if (curCols < cols) {
             // Make columns visible (if possible)
             for (let r = 1; r <= totalRows; r++) {
-                for (let c = totalCols; c > curCols; c--) {
+                for (let c = curCols+1; c <= totalCols; c++) {
                     if (c <= cols) {
                         const nextCell = document.querySelector("#foneGrid #row" + r + " .col" + c);
                         nextCell.classList.toggle("hidden");
@@ -146,7 +146,14 @@
             }
 
             // Add new columns (if necessary)
-
+            for (let r = 1; r <= totalRows; r++) {
+                let output = "";
+                for (let c = totalCols+1; c <= cols; c++) {
+                    output += '<td class="col' + c + '" onmousedown="fillCell(this)"></td>';
+                }
+                const nextRow = document.querySelector("#foneGrid #row" + r);
+                nextRow.innerHTML += output;
+            }
 
             // If new columns were added, update totalCols
             if (totalCols < cols) {
