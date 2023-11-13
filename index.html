@@ -156,10 +156,18 @@
             }
         }
         curCols = cols;
+
+        printInfo();
     }
 
     function fillCell(element) {
         element.classList.toggle("filled");
+    }
+
+    function printInfo() {
+        console.log("Dim: " + rows + "x" + cols);
+        console.log("Vis: " + curRows + "x" + curCols);
+        console.log("Tot: " + totalRows + "x" + totalCols);
     }
   </script>
 </body>
