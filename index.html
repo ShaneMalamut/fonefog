@@ -8,6 +8,7 @@
     #foneGrid {
         background: #ccc;
         border: 1px solid #000;
+        margin: 10px 0;
     }
 
     #foneGrid td {
@@ -52,12 +53,27 @@
         <tbody>
         </tbody>
     </table>
+    <form id="saveForm" action="#">
+        <label for="saveName">Save as: </label>
+        <input id="saveName" type="text" name="saveName"><br>
+        <button type="submit">Save</button>
+    </form>
+    <h2>Saved</h2>
+    <ul id="saveList"></ul>
   </main>
   <script>
+    // Grid size form
     const tableForm = document.querySelector("#foneForm");
     const rowInput = document.querySelector("input#foneRows");
     const colInput = document.querySelector("input#foneCols");
+
+    // The grid itself
     const foneGrid = document.querySelector("#foneGrid tbody");
+
+    // Save form
+    const saveForm = document.querySelector("#saveForm");
+    const saveInput = document.querySelector("input#saveName");
+    const saveList = document.querySelector("ul#saveList");
 
     // rows and columns desired by user
     let rows = 20;
@@ -73,6 +89,7 @@
 
     updateTable();
 
+    // User inputs new row or column number
     tableForm.onchange = function(e) {
         let fieldValue = rowInput.value;
         if (fieldValue != null && fieldValue != "" && !isNaN(fieldValue)) {
@@ -169,18 +186,23 @@
             }
         }
         curCols = cols;
-
-        printInfo();
     }
 
     function fillCell(element) {
         element.classList.toggle("filled");
     }
 
-    function printInfo() {
-        console.log("Dim: " + rows + "x" + cols);
-        console.log("Vis: " + curRows + "x" + curCols);
-        console.log("Tot: " + totalRows + "x" + totalCols);
+    // User clicks "Save" to add a new map
+    saveForm.onsubmit = function(e) {
+        event.preventDefault();
+        let fieldValue = saveInput.value;
+
+        if (fieldValue != null && fieldValue != "") {
+            saveList.innerHTML += "<li>" + fieldValue + "</li>";
+            saveInput.value = "";
+        }
+
+        return false;
     }
   </script>
 </body>
