@@ -49,19 +49,27 @@
         </table>
     </form>
     <table id="foneGrid">
+        <tbody>
+        </tbody>
     </table>
   </main>
   <script>
     const tableForm = document.querySelector("#foneForm");
     const rowInput = document.querySelector("input#foneRows");
     const colInput = document.querySelector("input#foneCols");
-    const foneGrid = document.querySelector("#foneGrid");
+    const foneGrid = document.querySelector("#foneGrid tbody");
 
+    // rows and columns desired by user
     let rows = 20;
     let cols = 40;
 
-    let curRows = 0;
-    let curCols = 40;
+    // rows and columns actually visible
+    let curRows = 0;    // start at 0 so updateTable() generates them
+    let curCols = cols; // start at 40 so updateTable() generates 40 cells per row
+
+    // rows and columns present in the DOM, including hidden ones
+    let totalRows = 0;
+    let totalCols = 0;
 
     updateTable();
 
@@ -87,10 +95,16 @@
     function updateTable() {
         //update rows
         if (curRows < rows) {
-            // Add new rows
+            console.log("adding rows");
+            // Make rows visible (if possible)
+            for (let r = totalRows; r > curRows; r--) {
+                const nextRow = document.querySelector("#foneGrid #row" + r);
+                nextRow.classList.toggle("hidden");
+            }
 
+            // Add new rows (if necessary)
             let output = "";
-            for (let r = curRows+1; r <= rows; r++) {
+            for (let r = totalRows+1; r <= rows; r++) {
                 output += '<tr id="row' + r + '">';
                 for (let c = 1; c <= curCols; c++) {
                     output += '<td class="col' + c + '" onmousedown="fillCell(this)"></td>';
@@ -98,8 +112,18 @@
                 output += '</tr>';
             }
             foneGrid.innerHTML += output;
+
+            // If new rows were added, update totalRows
+            if (totalRows < rows) {
+                totalRows = rows;
+            }
         } else if (curRows > rows) {
             // Hide rows
+            console.log("hiding rows");
+            for (let r = curRows; r > rows; r--) {
+                const nextRow = document.querySelector("#foneGrid #row" + r);
+                nextRow.classList.toggle("hidden");
+            }
         }
         curRows = rows;
 
