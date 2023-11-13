@@ -69,7 +69,7 @@
 
     // rows and columns present in the DOM, including hidden ones
     let totalRows = 0;
-    let totalCols = 0;
+    let totalCols = cols;
 
     updateTable();
 
@@ -95,11 +95,12 @@
     function updateTable() {
         //update rows
         if (curRows < rows) {
-            console.log("adding rows");
             // Make rows visible (if possible)
             for (let r = totalRows; r > curRows; r--) {
-                const nextRow = document.querySelector("#foneGrid #row" + r);
-                nextRow.classList.toggle("hidden");
+                if (r <= rows) {
+                    const nextRow = document.querySelector("#foneGrid #row" + r);
+                    nextRow.classList.toggle("hidden");
+                }
             }
 
             // Add new rows (if necessary)
@@ -119,7 +120,6 @@
             }
         } else if (curRows > rows) {
             // Hide rows
-            console.log("hiding rows");
             for (let r = curRows; r > rows; r--) {
                 const nextRow = document.querySelector("#foneGrid #row" + r);
                 nextRow.classList.toggle("hidden");
@@ -129,10 +129,25 @@
 
         //update columns
         if (curCols < cols) {
-            // Add new columns
+            // Make columns visible (if possible)
+            for (let r = 1; r <= totalRows; r++) {
+                for (let c = totalCols; c > curCols; c--) {
+                    if (c <= cols) {
+                        const nextCell = document.querySelector("#foneGrid #row" + r + " .col" + c);
+                        nextCell.classList.toggle("hidden");
+                    }
+                }
+            }
+
+            // Add new columns (if necessary)
+
+
+            // If new columns were added, update totalCols
+            if (totalCols < cols) {
+                totalCols = cols;
+            }
         } else if (curCols > cols) {
             // Hide columns
-            console.log("hiding columns");
             for (let r = 1; r <= totalRows; r++) {
                 for (let c = curCols; c > cols; c--) {
                     const nextCell = document.querySelector("#foneGrid #row" + r + " .col" + c);
