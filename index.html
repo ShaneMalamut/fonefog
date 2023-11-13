@@ -47,41 +47,74 @@
                 </td>
             </tr>
         </table>
-      </form>
-      <table id="foneGrid">
-        <tr id="row1">
-            <td class="col1"></td><td class="col2"></td><td class="col3"></td>
-        </tr>
-        <tr id="row2">
-            <td class="col1"></td><td class="col2"></td><td class="col3"></td>
-        </tr>
-        <tr id="row3">
-            <td class="col1"></td><td class="col2"></td><td class="col3"></td>
-        </tr>
-      </table>
+    </form>
+    <table id="foneGrid">
+    </table>
   </main>
   <script>
     const tableForm = document.querySelector("#foneForm");
     const rowInput = document.querySelector("input#foneRows");
     const colInput = document.querySelector("input#foneCols");
-    
+    const foneGrid = document.querySelector("#foneGrid");
+
     let rows = 20;
     let cols = 40;
+
+    let curRows = 0;
+    let curCols = 40;
+
+    updateTable();
 
     tableForm.onchange = function(e) {
         let fieldValue = rowInput.value;
         if (fieldValue != null && fieldValue != "") {
             rows = fieldValue;
+        } else {
+            rows = 20;
         }
         
         fieldValue = colInput.value;
         if (fieldValue != null && fieldValue != "") {
             cols = fieldValue;
+        } else {
+            cols = 40;
         }
 
+        updateTable();
         return false;
     }
 
+    function updateTable() {
+        //update rows
+        if (curRows < rows) {
+            // Add new rows
+
+            let output = "";
+            for (let r = curRows+1; r <= rows; r++) {
+                output += '<tr id="row' + r + '">';
+                for (let c = 1; c <= curCols; c++) {
+                    output += '<td class="col' + c + '" onmousedown="fillCell(this)"></td>';
+                }
+                output += '</tr>';
+            }
+            foneGrid.innerHTML += output;
+        } else if (curRows > rows) {
+            // Hide rows
+        }
+        curRows = rows;
+
+        //update columns
+        if (curCols < cols) {
+            // Add new columns
+        } else if (curCols > cols) {
+            // Hide columns
+        }
+        curCols = cols;
+    }
+
+    function fillCell(element) {
+        element.classList.toggle("filled");
+    }
   </script>
 </body>
 </html>
