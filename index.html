@@ -132,6 +132,13 @@
             // Add new columns
         } else if (curCols > cols) {
             // Hide columns
+            console.log("hiding columns");
+            for (let r = 1; r <= totalRows; r++) {
+                for (let c = curCols; c > cols; c--) {
+                    const nextCell = document.querySelector("#foneGrid #row" + r + " .col" + c);
+                    nextCell.classList.toggle("hidden");
+                }
+            }
         }
         curCols = cols;
     }
