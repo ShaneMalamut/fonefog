@@ -75,15 +75,21 @@
 
     tableForm.onchange = function(e) {
         let fieldValue = rowInput.value;
-        if (fieldValue != null && fieldValue != "") {
-            rows = fieldValue;
+        if (fieldValue != null && fieldValue != "" && !isNaN(fieldValue)) {
+            rows = parseInt(fieldValue);
+            if (rows < 0) {
+                rows = 20;
+            }
         } else {
             rows = 20;
         }
         
         fieldValue = colInput.value;
-        if (fieldValue != null && fieldValue != "") {
-            cols = fieldValue;
+        if (fieldValue != null && fieldValue != "" && !isNaN(fieldValue)) {
+            cols = parseInt(fieldValue);
+            if (cols < 0) {
+                cols = 40;
+            }
         } else {
             cols = 40;
         }
