@@ -74,6 +74,16 @@
     const saveForm = document.querySelector("#saveForm");
     const saveInput = document.querySelector("input#saveName");
     const saveList = document.querySelector("ul#saveList");
+    let saveItems = [];
+    
+    // Populate saveItems from localStorage
+    const getItems = JSON.parse(localStorage.getItem("rooms"));
+    if (getItems != null) {
+        console.log(getItems);
+        saveItems = getItems;
+        console.log(saveItems);
+        populateSaveList(saveItems);
+    }
 
     // rows and columns desired by user
     let rows = 20;
@@ -198,11 +208,24 @@
         let fieldValue = saveInput.value;
 
         if (fieldValue != null && fieldValue != "") {
-            saveList.innerHTML += "<li>" + fieldValue + "</li>";
+            saveItems.push(fieldValue);
+            localStorage.setItem("rooms", JSON.stringify(saveItems));
+
+            populateSaveList(saveItems);
             saveInput.value = "";
         }
 
         return false;
+    }
+
+    // Clear the unordered list and add all elements from the array, in sorted order
+    function populateSaveList(items) {
+        console.log(items);
+        items.sort();
+        saveList.innerHTML = "";
+        for (let i = 0; i < items.length; i++) {
+            saveList.innerHTML += "<li>" + items[i] + "</li>";
+        }
     }
   </script>
 </body>
