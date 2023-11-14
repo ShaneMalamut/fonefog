@@ -208,7 +208,8 @@
         let fieldValue = saveInput.value;
 
         if (fieldValue != null && fieldValue != "") {
-            saveItems.push(fieldValue);
+            // TODO: Check if the name is already in use, and if so, override the data
+            saveItems.push([fieldValue, getGridData()]);
             localStorage.setItem("rooms", JSON.stringify(saveItems));
 
             populateSaveList(saveItems);
@@ -218,14 +219,45 @@
         return false;
     }
 
+    // Returns an array with the grid data
+    function getGridData() {
+        const gridData = [];
+        for (let r = 1; r <= curRows; r++) {
+            let output = "";
+            for (let c = 1; c <= curCols; c++) {
+                const nextCell = document.querySelector("#foneGrid #row" + r + " .col" + c);
+                if (nextCell.classList.contains("filled")) {
+                    output += "0";
+                } else {
+                    output += "1";
+                }
+            }
+            gridData.push(output);
+        }
+        return gridData;
+    }
+
     // Clear the unordered list and add all elements from the array, in sorted order
     function populateSaveList(items) {
         console.log(items);
         items.sort();
         saveList.innerHTML = "";
         for (let i = 0; i < items.length; i++) {
-            saveList.innerHTML += "<li>" + items[i] + "</li>";
+            saveList.innerHTML += "<li><a href=\"#\" onclick=\"buildGrid(" + i + "); return false;\">" + items[i][0] + "</a></li>";
         }
+    }
+
+    // Load data from saveItems based on the index and build the grid
+    function buildGrid(index) {
+        console.log(saveItems[index]);
+        const gridData = saveItems[index][1];
+
+        // Resize the table
+        rows = gridData.length;
+        cols = gridData[0].length;
+        updateTable();
+
+        // Fill/unfill sells as appropriate
     }
   </script>
 </body>
