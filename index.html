@@ -55,6 +55,11 @@
                     <input id="foneCols" type="text" name="foneCols" placeholder="40">
                 </td>
             </tr>
+            <tr>
+                <td>
+                    <button onclick="clearGrid()" type="button">Clear Grid</button>
+                </td>
+            </tr>
         </table>
     </form>
     <table id="foneGrid">
@@ -238,8 +243,6 @@
         return false;
     }
 
-
-
     // Returns an array with the grid data
     function getGridData() {
         const gridData = [];
@@ -305,6 +308,18 @@
         saveItems.splice(index, 1);
         localStorage.setItem("rooms", JSON.stringify(saveItems));
         populateSaveList(saveItems);
+    }
+
+    // Clear all cells, including hidden ones
+    function clearGrid() {
+        for (let r = 1; r < totalRows; r++) {
+            for (let c = 1; c < totalCols; c++) {
+                const nextCell = document.querySelector("#foneGrid #row" + r + " .col" + c);
+                if (nextCell.classList.contains("filled")) {
+                    nextCell.classList.toggle("filled");
+                }
+            }
+        }
     }
   </script>
 </body>
