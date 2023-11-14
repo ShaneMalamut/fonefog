@@ -1,14 +1,15 @@
 #foneGrid {
-    background: #D6D6D6;
     border: 1px solid #333333;
     margin: 10px 0;
     box-shadow: 2px 2px 2px 0 #D6D6D6;
+    border-collapse: collapse;
 }
 
 #foneGrid td {
     background: #fff;
     width: 20px;
     height: 20px;
+    border: 2px solid #D6D6D6;
 }
 
 #foneGrid td.filled {

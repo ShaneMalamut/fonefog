@@ -136,6 +136,8 @@ function updateTable() {
     curCols = cols;
 }
 
+// Fill the cell the mouse is currently hovering over
+// Check if eraser mode is active
 function fillCell(element) {
     if (mouseDown) {
         if (element.classList.contains("filled") == eraser) {
@@ -144,6 +146,9 @@ function fillCell(element) {
     }
 }
 
+// Fill the first cell clicked
+// Set eraser mode if the current cell is being erased
+// Disable eraser mode if the current cell is being filled
 function forceFillCell(element) {
     if (element.classList.contains("filled")) {
         eraser = true;
