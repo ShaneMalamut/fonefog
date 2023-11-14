@@ -2,6 +2,9 @@
 const tableForm = document.querySelector("#foneForm");
 const rowInput = document.querySelector("input#foneRows");
 const colInput = document.querySelector("input#foneCols");
+const startCheck = document.querySelector("#startCheck");
+let start = false;
+let marker = null;
 
 // The grid itself
 const foneGrid = document.querySelector("#foneGrid tbody");
@@ -11,7 +14,6 @@ let eraser = false;
 // Save form
 const saveForm = document.querySelector("#saveForm");
 const saveInput = document.querySelector("input#saveName");
-const downloadButton = document.querySelector("#downloadGrid");
 const saveList = document.querySelector("ul#saveList");
 let saveItems = [];
 
@@ -140,7 +142,7 @@ function updateTable() {
 // Fill the cell the mouse is currently hovering over
 // Check if eraser mode is active
 function fillCell(element) {
-    if (mouseDown) {
+    if (mouseDown && !start) {
         if (element.classList.contains("filled") == eraser) {
             element.classList.toggle("filled");
         }
@@ -151,13 +153,21 @@ function fillCell(element) {
 // Set eraser mode if the current cell is being erased
 // Disable eraser mode if the current cell is being filled
 function forceFillCell(element) {
-    if (element.classList.contains("filled")) {
-        eraser = true;
+    if (start) {
+        element.classList.toggle("marker");
+        if (marker != null) {
+            marker.classList.toggle("marker");
+        }
+        marker = element;
     } else {
-        eraser = false;
+        if (element.classList.contains("filled")) {
+            eraser = true;
+        } else {
+            eraser = false;
+        }
+    
+        element.classList.toggle("filled");
     }
-
-    element.classList.toggle("filled");
 }
 
 // User clicks "Save" to add a new map
@@ -195,7 +205,9 @@ function getGridData() {
         let output = "";
         for (let c = 1; c <= curCols; c++) {
             const nextCell = document.querySelector("#foneGrid #row" + r + " .col" + c);
-            if (nextCell.classList.contains("filled")) {
+            if (nextCell.classList.contains("marker")) {
+                output += "*";
+            } else if (nextCell.classList.contains("filled")) {
                 output += "0";
             } else {
                 output += "1";
@@ -235,11 +247,23 @@ function buildGrid(index) {
     // Update save form
     saveInput.value = saveItems[index][0];
 
+    // Reset marker
+    marker = null;
+
     // Fill/unfill sells as appropriate
     for (let r = 1; r <= curRows; r++) {
         let data = gridData[r-1];
         for (let c = 1; c <= curCols; c++) {
             const nextCell = document.querySelector("#foneGrid #row" + r + " .col" + c);
+            if (data.charAt(c-1) == "*") {
+                marker = nextCell;
+                if (!nextCell.classList.contains("marker")) {
+                    nextCell.classList.toggle("marker");
+                }
+            } else if (nextCell.classList.contains("marker")) {
+                nextCell.classList.toggle("marker");
+            }
+
             if ((data.charAt(c-1) == "1" && nextCell.classList.contains("filled")) ||
             (data.charAt(c-1) == "0" && !nextCell.classList.contains("filled"))) {
                 nextCell.classList.toggle("filled");
@@ -283,6 +307,10 @@ function clearGrid() {
             }
         }
     }
+    if (marker != null) {
+        marker.classList.toggle("marker");
+    }
+    marker = null;
 }
 
 foneGrid.onmousedown = function(e) {
@@ -291,4 +319,8 @@ foneGrid.onmousedown = function(e) {
 
 foneGrid.onmouseup = function(e) {
     mouseDown = false;
+}
+
+startCheck.onclick = function(e) {
+    start = startCheck.checked;
 }

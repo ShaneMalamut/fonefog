@@ -16,6 +16,10 @@
     background: #B2B2B2;
 }
 
+#foneGrid td.marker {
+    background: #ADCC23;
+}
+
 .hidden {
     display: none;
 }
