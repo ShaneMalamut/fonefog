@@ -6,6 +6,7 @@ const colInput = document.querySelector("input#foneCols");
 // The grid itself
 const foneGrid = document.querySelector("#foneGrid tbody");
 let mouseDown = false;
+let eraser = false;
 
 // Save form
 const saveForm = document.querySelector("#saveForm");
@@ -137,11 +138,19 @@ function updateTable() {
 
 function fillCell(element) {
     if (mouseDown) {
-        element.classList.toggle("filled");
+        if (element.classList.contains("filled") == eraser) {
+            element.classList.toggle("filled");
+        }
     }
 }
 
 function forceFillCell(element) {
+    if (element.classList.contains("filled")) {
+        eraser = true;
+    } else {
+        eraser = false;
+    }
+
     element.classList.toggle("filled");
 }
 
