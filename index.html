@@ -1,51 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fone Fog</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <main>
-    <h1>Fone Fog</h1>
-    <form id="foneForm" action="#">
-        <table>
-            <tr>
-                <td>
-                    <label for="foneRows">Rows: </label>
-                </td>
-                <td>
-                    <input id="foneRows" type="text" name="foneRows" placeholder="20">
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label for="foneCols">Columns: </label>
-                </td>
-                <td>
-                    <input id="foneCols" type="text" name="foneCols" placeholder="40">
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <button onclick="clearGrid()" type="button">Clear Grid</button>
-                </td>
-            </tr>
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fone Fog</title>
+    <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+    <main>
+        <h1>Fone Fog</h1>
+        <form id="foneForm" action="#">
+            <table>
+                <tr>
+                    <td>
+                        <label for="foneRows">Rows: </label>
+                    </td>
+                    <td>
+                        <input id="foneRows" type="text" name="foneRows" placeholder="20">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="foneCols">Columns: </label>
+                    </td>
+                    <td>
+                        <input id="foneCols" type="text" name="foneCols" placeholder="40">
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <button onclick="clearGrid()" type="button">Clear Grid</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+        <table id="foneGrid">
+            <tbody>
+            </tbody>
         </table>
-    </form>
-    <table id="foneGrid">
-        <tbody>
-        </tbody>
-    </table>
-    <form id="saveForm" action="#">
-        <label for="saveName">Save as: </label>
-        <input id="saveName" type="text" name="saveName"><br>
-        <button type="submit">Save</button>
-    </form>
-    <h2>Saved Rooms:</h2>
-    <ul id="saveList"></ul>
-  </main>
-  <script src="script.js"></script>
-</body>
+        <form id="saveForm" action="#">
+            <label for="saveName">Save as: </label>
+            <input id="saveName" type="text" name="saveName"><br>
+            <button type="submit">Save</button>
+        </form>
+        <h2>Saved Rooms:</h2>
+        <ul id="saveList"></ul>
+    </main>
+    <script src="script.js"></script>
+    </body>
 </html>

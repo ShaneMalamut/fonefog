@@ -5,6 +5,7 @@ const colInput = document.querySelector("input#foneCols");
 
 // The grid itself
 const foneGrid = document.querySelector("#foneGrid tbody");
+let mouseDown = false;
 
 // Save form
 const saveForm = document.querySelector("#saveForm");
@@ -77,7 +78,7 @@ function updateTable() {
         for (let r = totalRows+1; r <= rows; r++) {
             output += '<tr id="row' + r + '">';
             for (let c = 1; c <= curCols; c++) {
-                output += '<td class="col' + c + '" onmousedown="fillCell(this)"></td>';
+                output += '<td class="col' + c + '" onmousedown="forceFillCell(this)" onmouseover="fillCell(this)"></td>';
             }
             output += '</tr>';
         }
@@ -112,7 +113,7 @@ function updateTable() {
         for (let r = 1; r <= totalRows; r++) {
             let output = "";
             for (let c = totalCols+1; c <= cols; c++) {
-                output += '<td class="col' + c + '" onmousedown="fillCell(this)"></td>';
+                output += '<td class="col' + c + '" onmousedown="forceFillCell(this)" onmouseover="fillCell(this)"></td>';
             }
             const nextRow = document.querySelector("#foneGrid #row" + r);
             nextRow.innerHTML += output;
@@ -135,6 +136,12 @@ function updateTable() {
 }
 
 function fillCell(element) {
+    if (mouseDown) {
+        element.classList.toggle("filled");
+    }
+}
+
+function forceFillCell(element) {
     element.classList.toggle("filled");
 }
 
@@ -243,4 +250,14 @@ function clearGrid() {
             }
         }
     }
+}
+
+foneGrid.onmousedown = function(e) {
+    console.log("mousedown");
+    mouseDown = true;
+}
+
+foneGrid.onmouseup = function(e) {
+    console.log("mouseup");
+    mouseDown = false;
 }
