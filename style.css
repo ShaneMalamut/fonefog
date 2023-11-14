@@ -16,7 +16,7 @@
     background: #B2B2B2;
 }
 
-#foneGrid tr.hidden, #foneGrid td.hidden {
+.hidden {
     display: none;
 }
 

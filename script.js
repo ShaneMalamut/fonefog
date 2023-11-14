@@ -11,6 +11,7 @@ let eraser = false;
 // Save form
 const saveForm = document.querySelector("#saveForm");
 const saveInput = document.querySelector("input#saveName");
+const downloadButton = document.querySelector("#downloadGrid");
 const saveList = document.querySelector("ul#saveList");
 let saveItems = [];
 
@@ -213,13 +214,13 @@ function populateSaveList(items) {
     for (let i = 0; i < items.length; i++) {
         saveList.innerHTML += "<li><a href=\"#\" onclick=\"buildGrid(" + i + 
             "); return false;\">" + items[i][0] + "</a> " +
-            "(<a href=\"#\" onclick=\"removeItem(" + i + "); return false;\">remove</a>)</li>";
+            "(<a href=\"#\" onclick=\"removeItem(" + i + "); return false;\">remove</a>) " + 
+            "(<a href=\"#\" onclick=\"downloadItem(" + i + "); return false;\">download</a>)</li>";
     }
 }
 
 // Load data from saveItems based on the index and build the grid
 function buildGrid(index) {
-    console.log(saveItems[index]);
     const gridData = saveItems[index][1];
 
     // Resize the table
@@ -252,6 +253,24 @@ function removeItem(index) {
     saveItems.splice(index, 1);
     localStorage.setItem("rooms", JSON.stringify(saveItems));
     populateSaveList(saveItems);
+}
+
+// Download a room from the list as a .txt file
+function downloadItem(index) {
+    const gridData = saveItems[index][1];
+
+    let output = "";
+    for (let i = 0; i < gridData.length; i++) {
+        output += gridData[i] + "\n";
+    }
+
+    let element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(output));
+    element.setAttribute('download', saveItems[index][0]);
+    element.style.display = 'none';
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
 }
 
 // Clear all cells, including hidden ones
