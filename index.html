@@ -266,10 +266,20 @@
         updateTable();
 
         // Update grid size form
-        rowInput.value = rows;
-        colInput.value = cols;
+        rowInput.value = curRows;
+        colInput.value = curCols;
 
         // Fill/unfill sells as appropriate
+        for (let r = 1; r <= curRows; r++) {
+            let data = gridData[r-1];
+            for (let c = 1; c <= curCols; c++) {
+                const nextCell = document.querySelector("#foneGrid #row" + r + " .col" + c);
+                if ((data.charAt(c-1) == "1" && nextCell.classList.contains("filled")) ||
+                (data.charAt(c-1) == "0" && !nextCell.classList.contains("filled"))) {
+                    nextCell.classList.toggle("filled");
+                }
+            }
+        }
     }
   </script>
 </body>
