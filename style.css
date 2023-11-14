@@ -1,0 +1,35 @@
+#foneGrid {
+    background: #D6D6D6;
+    border: 1px solid #333333;
+    margin: 10px 0;
+    box-shadow: 2px 2px 2px 0 #D6D6D6;
+}
+
+#foneGrid td {
+    background: #fff;
+    width: 20px;
+    height: 20px;
+}
+
+#foneGrid td.filled {
+    background: #B2B2B2;
+}
+
+#foneGrid tr.hidden, #foneGrid td.hidden {
+    display: none;
+}
+
+h1 {
+    color: #450084;
+    background: #CBB677;
+    padding: 5px;
+}
+
+h1, h2 {
+    font-family: Trebuchet MS;
+}
+
+body {
+    font-family: Calibri;
+    font-size: 16px;
+}
