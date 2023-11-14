@@ -256,8 +256,8 @@ function removeItem(index) {
 
 // Clear all cells, including hidden ones
 function clearGrid() {
-    for (let r = 1; r < totalRows; r++) {
-        for (let c = 1; c < totalCols; c++) {
+    for (let r = 1; r <= totalRows; r++) {
+        for (let c = 1; c <= totalCols; c++) {
             const nextCell = document.querySelector("#foneGrid #row" + r + " .col" + c);
             if (nextCell.classList.contains("filled")) {
                 nextCell.classList.toggle("filled");
@@ -267,11 +267,9 @@ function clearGrid() {
 }
 
 foneGrid.onmousedown = function(e) {
-    console.log("mousedown");
     mouseDown = true;
 }
 
 foneGrid.onmouseup = function(e) {
-    console.log("mouseup");
     mouseDown = false;
 }
