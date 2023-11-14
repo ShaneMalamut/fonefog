@@ -264,7 +264,9 @@
         items.sort();
         saveList.innerHTML = "";
         for (let i = 0; i < items.length; i++) {
-            saveList.innerHTML += "<li><a href=\"#\" onclick=\"buildGrid(" + i + "); return false;\">" + items[i][0] + "</a></li>";
+            saveList.innerHTML += "<li><a href=\"#\" onclick=\"buildGrid(" + i + 
+                "); return false;\">" + items[i][0] + "</a> " +
+                "(<a href=\"#\" onclick=\"removeItem(" + i + "); return false;\">remove</a>)</li>";
         }
     }
 
@@ -296,6 +298,13 @@
                 }
             }
         }
+    }
+
+    // Remove a room from the list
+    function removeItem(index) {
+        saveItems.splice(index, 1);
+        localStorage.setItem("rooms", JSON.stringify(saveItems));
+        populateSaveList(saveItems);
     }
   </script>
 </body>
