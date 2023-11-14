@@ -66,6 +66,8 @@ tableForm.onchange = function(e) {
     return false;
 }
 
+// Update the table with the desired number of rows and columns,
+// Adding and removing rows and columns as needed
 function updateTable() {
     //update rows
     if (curRows < rows) {
@@ -224,10 +226,11 @@ function populateSaveList(items) {
     items.sort();
     saveList.innerHTML = "";
     for (let i = 0; i < items.length; i++) {
-        saveList.innerHTML += "<li><a href=\"#\" onclick=\"buildGrid(" + i + 
-            "); return false;\">" + items[i][0] + "</a> " +
+        saveList.innerHTML += "<li>" +
             "(<a href=\"#\" onclick=\"removeItem(" + i + "); return false;\">remove</a>) " + 
-            "(<a href=\"#\" onclick=\"downloadItem(" + i + "); return false;\">download</a>)</li>";
+            "(<a href=\"#\" onclick=\"downloadItem(" + i + "); return false;\">download</a>) " +
+            "<a href=\"#\" onclick=\"buildGrid(" + i + "); return false;\">" + items[i][0] + "</a>" +
+            "</li>";
     }
 }
 
